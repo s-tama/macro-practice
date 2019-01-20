@@ -1,0 +1,172 @@
+sheet1･･････
+A10セルを塗りつぶしする操作を記録し、
+sheet1と名前をつける。
+
+sheet2･･････
+colorについて
+https://msdn.microsoft.com/ja-jp/library/cc391272.aspx
+p42演習ｃ　構文01
+
+Sub koubun01()
+If Range("a10").Value <= 25 Then
+Range("a10").Interior.ColorIndex = 3
+Else
+Range("a10").Interior.ColorIndex = 8
+End If
+End Sub
+
+sheet3･･････
+p42演習d　構文02
+
+Sub koubun02()
+Dim i As Integer
+For　 i = 5 To 11
+Cells(i, 2).Value = 5
+Cells(6, i).Value = 15
+Next　i
+End Sub
+
+sheet4･･････
+テストの結果
+
+Sub test()
+    Dim tokuten As Integer '変数tokutenの型
+    tokuten = InputBox("テストの点を入力", "テスト結果")
+    If tokuten >= 80 Then
+    MsgBox ("優")
+    ElseIf tokuten >= 70 Then
+    MsgBox ("良")
+    ElseIf tokuten >= 60 Then
+    MsgBox ("可")
+    Else
+    MsgBox ("追試")
+    End If
+End Sub
+
+sheet5･･････
+合否の判定
+
+Sub gouhi()
+  Dim tokuten As Integer
+  tokuten = Application.InputBox(Prompt:="点数を入力して下さい", _
+                        Title:="点数の入力", Type:=1)
+'ApplicationオブジェクトのInputBoxメソッドの場合は、受け取るものを指定できる、
+'Type:=0　数式
+'Type:=1　数値
+'Type:=2　文字列　など
+  Select Case tokuten
+    Case Is > 100
+      MsgBox "点数が間違いです。"
+    Case 60 To 100
+      MsgBox "合格です"
+    Case Else
+      MsgBox "不合格です"
+  End Select
+End Sub
+
+sheet6
+成績の評価･･････
+
+Sub seiseki()
+  Dim i As Integer
+  Range("B3").Activate
+  For i = 1 To 5
+ 
+    Select Case Selection.Value
+      Case Is >= 80
+        ActiveCell.Offset(0, 1).Value = "優"
+      Case Is >= 70
+        ActiveCell.Offset(0, 1).Value = "良"
+      Case Is >= 60
+        ActiveCell.Offset(0, 1).Value = "可"
+      Case Else
+        ActiveCell.Offset(0, 1).Value = "不可"
+    End Select
+    
+    ActiveCell.Offset(1, 0).Activate
+   Next
+ End Sub
+
+sheet7･･････
+80点以上のセルに色つけ
+
+ Sub cell()
+    Dim i As Integer, j As Integer
+    For i = 2 To 11
+        For j = 2 To 4
+            If Cells(i, j).Value >= 80 Then            '80以上の場合
+                Cells(i, j).Interior.ColorIndex = 22     'ピンク
+            Else
+                Cells(i, j).Interior.ColorIndex = 20     '水色
+            End If
+        Next j
+    Next i
+End Sub
+
+sheet8 練習プリントp43演習01･･････
+入力した2つの数の和と差を求める。
+Sub ensyuu01()
+
+Dim a As Long
+Dim b As Long
+Dim x As Long
+Dim y As Long
+Dim i As Integer
+
+For i = 1 To 10
+Cells(i, 1).Value = ""
+Cells(i, 2).Value = ""
+Next i
+
+a = InputBox("数字の入力１")
+b = InputBox("数字の入力２")
+x = a + b
+y = a - b
+
+Cells(1, 1).Value = "入力数字１"
+Cells(2, 1).Value = "入力数字２"
+Cells(1, 2).Value = a
+Cells(2, 2).Value = b
+
+Cells(3, 1).Value = "和"
+Cells(4, 1).Value = "差"
+Cells(3, 2).Value = x
+Cells(4, 2).Value = y
+End Sub
+
+
+sheet9 練習プリントp43演習02･･････
+sheet7 を参考にして50以上の欄と50未満の欄を色分けする。(sheet9実行イメージ.jpgを参考に、色は同じでなくてもよい。)
+与えられている表からｊは不必要になることに注意。
+Sub ensyuu02()
+Dim i As Integer
+
+
+
+
+End Sub
+
+sheet10 練習プリントp44応用01(カレンダー)･･････
+B1セルに「2017/12/1」のように入力してから実行すると、該当月のカレンダーを表示
+
+Sub ouyou01()
+Dim hidsuke As Date
+Dim kongetsu As Integer
+Dim youbisuu As Integer
+hidsuke = Range("B1").Value
+kongetsu = Month(hidsuke)
+youbisuu = Weekday(hidsuke)
+Range("B4:H9").ClearContents
+Do While kongetsu = Month(hidsuke)
+Range("B4:H9").Cells(Day(hidsuke) + youbisuu - 1).Value = Day(hidsuke)
+hidsuke = hidsuke + 1
+Loop
+End Sub
+
+本日の課題
+1．sheet8,9,10を完成させ、マクロ有効ブックで保存したエクセルのファイルを課題提出箱に提出。ファイル名はmacro2nd_16g000のようにする。
+2．sheet6で、得点が整数の時に成績が「可」となるのは、何点から何点までか？（紙で提出）
+
+
+
+
